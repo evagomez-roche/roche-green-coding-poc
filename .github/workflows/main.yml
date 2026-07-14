@@ -8,31 +8,31 @@ jobs:
   sustainability-test:
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout del código
+      - name: 📥 Checkout code
         uses: actions/checkout@v3
 
-      - name: 🟢 ECO-CI - Iniciar Medición
+      - name: 🟢 ECO-CI - Start Measurement
         uses: green-coding-solutions/eco-ci-energy-estimation@v4
         with:
           task: start-measurement
 
-      - name: 🐍 Configurar Python
+      - name: 🐍 Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
 
-      - name: 📦 Instalar dependencias
+      - name: 📦 Install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: 🛠️ Ejecutar Script de Eva (El código real de Roche)
+      - name: 🛠️ Run Eva's Script (Roche Device Carbon Estimator)
         run: |
           export CLOUD_PROVIDER="local"
           export CLOUD_REGION="ES"
           export CLOUD_INSTANCE_TYPE="github-runner"
           python carbon_script.py
 
-      - name: 🛑 ECO-CI - Calcular Emisiones Finales
+      - name: 🛑 ECO-CI - Calculate Final Emissions
         uses: green-coding-solutions/eco-ci-energy-estimation@v4
         with:
           task: get-measurement
