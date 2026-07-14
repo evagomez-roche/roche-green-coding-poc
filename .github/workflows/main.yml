@@ -38,3 +38,4 @@ jobs:
           task: get-measurement
           display-table: true
           pr-comment: true
+          send-data: false #
