@@ -39,3 +39,4 @@ jobs:
           display-table: true
           pr-comment: true
           send-data: false #
+          gmt-api-url: "https://api.green-coding.io/v2"
