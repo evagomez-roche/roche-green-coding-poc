@@ -1,0 +1,19 @@
+name: myCO2-Enrichment-Pipeline
+description: Automated Pipeline with ECO-SCI Allocation
+initialize:
+  plugins:
+    sci:
+      method: Sci
+      path: "@grnsft/if-plugins"
+tree:
+  children:
+    python-script:
+      pipeline: [sci]
+      defaults:
+        device/emissions-embodied: 0.0012690128559149322
+        time/duration: 10.004897356033325
+      inputs:
+        - timestamp: "2026-07-14T08:53:02Z"
+          energy: 8.993805582006446e-07 
+          carbon-intensity: 129.0
+          transactions: 516
