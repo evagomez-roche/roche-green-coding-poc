@@ -1,0 +1,40 @@
+name: Green IT Pipeline (Eco-CI Test)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  sustainability-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout del código
+        uses: actions/checkout@v3
+
+      - name: 🟢 ECO-CI - Iniciar Medición
+        uses: green-coding-solutions/eco-ci-energy-estimation@v4
+        with:
+          task: start-measurement
+
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: 📦 Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+
+      - name: 🛠️ Ejecutar Script de Eva (El código real de Roche)
+        run: |
+          export CLOUD_PROVIDER="local"
+          export CLOUD_REGION="ES"
+          export CLOUD_INSTANCE_TYPE="github-runner"
+          python carbon_script.py
+
+      - name: 🛑 ECO-CI - Calcular Emisiones Finales
+        uses: green-coding-solutions/eco-ci-energy-estimation@v4
+        with:
+          task: get-measurement
+          display-table: true
+          pr-comment: true
